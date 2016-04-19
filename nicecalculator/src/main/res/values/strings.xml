@@ -8,4 +8,6 @@
     <string name="multiply">*</string>
     <string name="divide">÷</string>
     <string name="equal">=</string>
+
+    <string name="toast_delete">算式已经被清空啦~</string>
 </resources>

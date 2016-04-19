@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button no7 = null;
     Button no8 = null;
     Button no9 = null;
+
     Button clear = null;
     Button delete = null;
     Button add = null;
@@ -29,13 +31,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button equal = null;
     TextView result = null;
 
+    Double num1 = null;
+    int tag = 0;//标志出当前的数字是第一个数还是第二个数以及它的算法
+    boolean isClickEqual = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView result = (TextView)findViewById(R.id.result);
+        result = (TextView)findViewById(R.id.result);
 
         //定义各个0~9按钮
         no0 = (Button)findViewById(R.id.no0);
@@ -79,17 +85,255 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reduce.setOnClickListener(this);
         multiply.setOnClickListener(this);
         divide.setOnClickListener(this);
-
         }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
         switch (v.getId()){
+            //0~9
             case R.id.no0:
-            {}
+            {
+                if (isClickEqual) {
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str0 = result.getText().toString();
+                str0 = str0 + "0";
+                result.setText(str0);
+                break;
+            }
+            case R.id.no1:
+            {
+                if (isClickEqual) {
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str1 = result.getText().toString();
+                str1 = str1 + "1";
+                result.setText(str1);
+                Toast.makeText(this,result.getText().toString(),Toast.LENGTH_SHORT).show();
+                break;
+            }
+
+            case R.id.no2:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "2";
+                result.setText(str);
+                break;
+            }
+            case R.id.no3:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "3";
+                result.setText(str);
+                break;
+            }
+            case R.id.no4:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "4";
+                result.setText(str);
+                break;
+            }
+            case R.id.no5:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "5";
+                result.setText(str);
+                break;
+            }
+            case R.id.no6:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "6";
+                result.setText(str);
+                break;
+            }
+            case R.id.no7:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "7";
+                result.setText(str);
+                break;
+            }
+            case R.id.no8:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "8";
+                result.setText(str);
+                break;
+            }
+            case R.id.no9:
+            {
+                if(isClickEqual){
+                    result.setText("");
+                    isClickEqual = false;
+                }
+                String str = result.getText().toString();
+                str = str + "9";
+                result.setText(str);
+                break;
+            }
+
+            //清除和删除按钮
+            case R.id.clear:
+                result.setText("");
+                break;
+            case R.id.delete:
+                String str = result.getText().toString();
+                try {
+                    result.setText(str.substring(0,str.length()-1));
+                }
+                catch (Exception e){
+                    Toast.makeText(this,R.string.toast_delete,Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            //+-*/
+            case R.id.add:
+                {//Toast.makeText(this,result.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Double buffer = Double.valueOf(result.getText().toString());
+                    switch (tag){
+
+                        case 0:
+                            num1 = buffer;
+                            break;
+                        case 1:
+                            num1 = num1 + buffer;
+                            break;
+                        case 2:
+                            num1 = num1 - buffer;
+                            break;
+                        case 3:
+                            num1 = num1 * buffer;
+                            break;
+                        case 4:
+                            num1 = num1 / buffer;
+                            break;
+                    }
+                    result.setText(String.valueOf(num1));
+                    Toast.makeText(this,String.valueOf(buffer),Toast.LENGTH_SHORT).show();
+                    tag = 1;
+                }
+            case R.id.reduce:
+            {
+                switch (tag){
+                    case 0:
+                        num1 = Double.valueOf(result.getText().toString());
+                        break;
+                    case 1:
+                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        break;
+                    case 2:
+                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        break;
+                    case 3:
+                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        break;
+                    case 4:
+                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        break;
+                }
+                result.setText(String.valueOf(num1));
+                tag = 2;
+            }
+            case R.id.multiply:
+            {
+                switch (tag){
+                    case 0:
+                        num1 = Double.valueOf(result.getText().toString());
+                        break;
+                    case 1:
+                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        break;
+                    case 2:
+                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        break;
+                    case 3:
+                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        break;
+                    case 4:
+                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        break;
+                }
+                result.setText(String.valueOf(num1));
+                tag = 3;
+            }
+            case R.id.divide:
+            {
+                switch (tag){
+                    case 0:
+                        num1 = Double.valueOf(result.getText().toString());
+                        break;
+                    case 1:
+                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        break;
+                    case 2:
+                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        break;
+                    case 3:
+                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        break;
+                    case 4:
+                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        break;
+                }
+                result.setText(String.valueOf(num1));
+                tag = 4;
+            }
+
+            //=
+            case R.id.equal:
+                switch (tag){
+                    case 0:
+                        num1 = Double.valueOf(result.getText().toString());
+                        break;
+                    case 1:
+                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        break;
+                    case 2:
+                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        break;
+                    case 3:
+                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        break;
+                    case 4:
+                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        break;
+                }
+                isClickEqual = true;
+                break;
+
         }
     }
-
-
 
 }
