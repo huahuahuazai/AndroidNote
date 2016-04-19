@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NiceCalculator</string>
+    <string name="result">请输入算式...</string>
+    <string name="clear">清除</string>
+    <string name="delete">删除</string>
+    <string name="add">+</string>
+    <string name="reduce">-</string>
+    <string name="multiply">*</string>
+    <string name="divide">÷</string>
+    <string name="equal">=</string>
+</resources>
