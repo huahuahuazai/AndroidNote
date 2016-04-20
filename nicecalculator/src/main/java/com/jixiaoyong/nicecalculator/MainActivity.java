@@ -1,9 +1,13 @@
 package com.jixiaoyong.nicecalculator;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button equal = null;
     TextView result = null;
 
-    Double num1 = null;
+    Double num = null;
     int tag = 0;//标志当前的运算符是+-*/哪一个
     boolean isSign = true;//判断此前输入的是数字还是运算符
     boolean isClickEqual = false;//判断是否点击了等于号
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//取消标题栏
         setContentView(R.layout.activity_main);
 
         result = (TextView)findViewById(R.id.result);
@@ -92,6 +97,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         multiply.setOnClickListener(this);
         divide.setOnClickListener(this);
         }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;//表示允许创建菜单显示，false表示不显示
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+        switch(menuItem.getItemId()){
+            case R.id.about:
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,About.class);
+                MainActivity.this.startActivity(intent);
+                break;
+            default:break;
+        }
+        return true;
+    }
 
     @Override
     public void onClick(View v) {
@@ -227,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 String str = result.getText().toString();
                 if(isPoint){
-                    Toast.makeText(this,"已经有小数点啦~",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.toast_point,Toast.LENGTH_SHORT).show();
                 }else{
                     str = str + ".";
                     isPoint = true;
@@ -239,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //清除和删除按钮
             case R.id.clear:
                 result.setText("");
-                num1 = null;
+                num = null;
                 tag = 0;
                 isClickEqual = false;
                 break;
@@ -256,130 +281,150 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //+-*/
             case R.id.add:
                 {
-                    Double buffer = Double.valueOf(result.getText().toString());
-                    switch (tag){
-                        case 0:
-                            num1 = buffer;
-                            break;
-                        case 1:
-                            num1 = num1 + buffer;
-                            break;
-                        case 2:
-                            num1 = num1 - buffer;
-                            break;
-                        case 3:
-                            num1 = num1 * buffer;
-                            break;
-                        case 4:
-                            num1 = num1 / buffer;
-                            break;
+                    //使用try...catch()语句保证在没有输入任何数字的时候点击一下运算符程序也不会出错
+                    try{
+                        Double buffer = Double.valueOf(result.getText().toString());
+                        switch (tag){
+                            case 0:
+                                num = buffer;
+                                break;
+                            case 1:
+                                num = num + buffer;
+                                break;
+                            case 2:
+                                num = num - buffer;
+                                break;
+                            case 3:
+                                num = num * buffer;
+                                break;
+                            case 4:
+                                num = num / buffer;
+                                break;
+                        }
+                        result.setText(String.valueOf(num));
+                        tag = 1;
+                        isSign = true;
+                    }catch(Exception e){
+                        Toast.makeText(this,R.string.toast_sign,Toast.LENGTH_SHORT).show();
                     }
-                    result.setText(String.valueOf(num1));
-                    tag = 1;
-                    isSign = true;
                     break;
                 }
             case R.id.reduce:
             {
-                Double buffer = Double.valueOf(result.getText().toString());
-                switch (tag){
-                    case 0:
-                        num1 = buffer;
-                        break;
-                    case 1:
-                        num1 = num1 + buffer;
-                        break;
-                    case 2:
-                        num1 = num1 - buffer;
-                        break;
-                    case 3:
-                        num1 = num1 * buffer;
-                        break;
-                    case 4:
-                        num1 = num1 / buffer;
-                        break;
+                try{
+                    Double buffer = Double.valueOf(result.getText().toString());
+                    switch (tag){
+                        case 0:
+                            num = buffer;
+                            break;
+                        case 1:
+                            num = num + buffer;
+                            break;
+                        case 2:
+                            num = num - buffer;
+                            break;
+                        case 3:
+                            num = num * buffer;
+                            break;
+                        case 4:
+                            num = num / buffer;
+                            break;
+                    }
+                    result.setText(String.valueOf(num));
+                    tag = 2;
+                    isSign = true;
+                }catch(Exception e){
+                    Toast.makeText(this,R.string.toast_sign,Toast.LENGTH_SHORT).show();
                 }
-                result.setText(String.valueOf(num1));
-                tag = 2;
-                isSign = true;
                 break;
             }
             case R.id.multiply:
             {
-                Double buffer = Double.valueOf(result.getText().toString());
-                switch (tag){
-                    case 0:
-                        num1 = buffer;
-                        break;
-                    case 1:
-                        num1 = num1 + buffer;
-                        break;
-                    case 2:
-                        num1 = num1 - buffer;
-                        break;
-                    case 3:
-                        num1 = num1 * buffer;
-                        break;
-                    case 4:
-                        num1 = num1 / buffer;
-                        break;
+                try{
+                    Double buffer = Double.valueOf(result.getText().toString());
+                    switch (tag){
+                        case 0:
+                            num = buffer;
+                            break;
+                        case 1:
+                            num = num + buffer;
+                            break;
+                        case 2:
+                            num = num - buffer;
+                            break;
+                        case 3:
+                            num = num * buffer;
+                            break;
+                        case 4:
+                            num = num / buffer;
+                            break;
+                    }
+                    result.setText(String.valueOf(num));
+                    tag = 3;
+                    isSign = true;
+                }catch(Exception e){
+                Toast.makeText(this,R.string.toast_sign,Toast.LENGTH_SHORT).show();
                 }
-                result.setText(String.valueOf(num1));
-                tag = 3;
-                isSign = true;
                 break;
             }
             case R.id.divide:
             {
-                Double buffer = Double.valueOf(result.getText().toString());
-                switch (tag){
-                    case 0:
-                        num1 = buffer;
-                        break;
-                    case 1:
-                        num1 = num1 + buffer;
-                        break;
-                    case 2:
-                        num1 = num1 - buffer;
-                        break;
-                    case 3:
-                        num1 = num1 * buffer;
-                        break;
-                    case 4:
-                        num1 = num1 / buffer;
-                        break;
+                try{
+                    Double buffer = Double.valueOf(result.getText().toString());
+                    switch (tag){
+                        case 0:
+                            num = buffer;
+                            break;
+                        case 1:
+                            num = num + buffer;
+                            break;
+                        case 2:
+                            num = num - buffer;
+                            break;
+                        case 3:
+                            num = num * buffer;
+                            break;
+                        case 4:
+                            num = num / buffer;
+                            break;
+                    }
+                    result.setText(String.valueOf(num));
+                    tag = 4;
+                    isSign = true;
+                }catch(Exception e){
+                    Toast.makeText(this,R.string.toast_sign,Toast.LENGTH_SHORT).show();
                 }
-                result.setText(String.valueOf(num1));
-                tag = 4;
-                isSign = true;
                 break;
             }
 
             //=
             case R.id.equal:
-                Double buffer = Double.valueOf(result.getText().toString());
-                switch (tag){
-                    case 0:
-                        num1 = buffer;
-                        break;
-                    case 1:
-                        num1 = num1 + buffer;
-                        break;
-                    case 2:
-                        num1 = num1 - buffer;
-                        break;
-                    case 3:
-                        num1 = num1 * buffer;
-                        break;
-                    case 4:
-                        num1 = num1 / buffer;
-                        break;
+                try{
+                    Double buffer = Double.valueOf(result.getText().toString());
+                    switch (tag){
+                        case 0:
+                            num = buffer;
+                            break;
+                        case 1:
+                            num = num + buffer;
+                            break;
+                        case 2:
+                            num = num - buffer;
+                            break;
+                        case 3:
+                            num = num * buffer;
+                            break;
+                        case 4:
+                            num = num / buffer;
+                            break;
+                    }
+                    result.setText(String.valueOf(num));
+                    isClickEqual = true;
+                    tag = 0;
+                }catch(Exception e){
+                    Toast.makeText(this,R.string.toast_sign,Toast.LENGTH_SHORT).show();
                 }
-                result.setText(String.valueOf(num1));
-                isClickEqual = true;
-                tag = 0;
                 break;
-
         }
     }
 

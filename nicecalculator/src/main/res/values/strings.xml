@@ -9,5 +9,26 @@
     <string name="divide">÷</string>
     <string name="equal">=</string>
 
+    <!--一些提示语句-->
     <string name="toast_delete">算式已经被清空啦~</string>
+    <string name="toast_point">已经有小数点啦~</string>
+    <string name="toast_sign">请先输入数值~</string>
+
+    <!--系统组件-->
+    <string name="about">关于</string>
+    <string name="about_me"><b>Shayn.J</b></string>
+    <string name="about_app">我用掉了差不多一整天的时间来制作NiceCalculator，
+        同时这也是我第一个顺利完工的Android软件。\n\n
+        此前有感于手机自带APP界面的臃肿不堪，我便开始尝试着自己写一些程序，于是便有了现在的这个简单的计算器。\n\n
+
+        目前只实现了简单的加减乘除运算，不过对于日常使用来说这些功能已经足够。虽然我已经尽可能多的对软件进行了调试，但是软件可能还存在各种未知的问题，
+        如果你在遇到后能够反馈给我，自然是最好不过了。\n\n
+
+        出于共同进步的目的，我已经将本程序所有代码完全托管在开源社区github上面，
+        你可以通过点击以下按钮免费得到这些源代码，并且在遵守GNU（General Public License）
+        的前提下，你可以任意使用、复制、修改和传播本程序。如果有更好的想法，欢迎在我的github上讨论，
+        或者你也可以选择通过电子邮件和我交流。
+
+
+    </string>
 </resources>
