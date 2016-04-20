@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button no7 = null;
     Button no8 = null;
     Button no9 = null;
+    Button point = null;
 
     Button clear = null;
     Button delete = null;
@@ -32,8 +33,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView result = null;
 
     Double num1 = null;
-    int tag = 0;//标志出当前的数字是第一个数还是第二个数以及它的算法
-    boolean isClickEqual = false;
+    int tag = 0;//标志当前的运算符是+-*/哪一个
+    boolean isSign = true;//判断此前输入的是数字还是运算符
+    boolean isClickEqual = false;//判断是否点击了等于号
+    boolean isPoint = false;//判断之前是否有小数点
+
 
 
     @Override
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         no7 = (Button)findViewById(R.id.no7);
         no8 = (Button)findViewById(R.id.no8);
         no9 = (Button)findViewById(R.id.no9);
+        point = (Button)findViewById(R.id.point);
 
         //定义各种按钮
         clear = (Button)findViewById(R.id.clear);
@@ -77,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         no8.setOnClickListener(this);
         no9.setOnClickListener(this);
         no0.setOnClickListener(this);
+        point.setOnClickListener(this);
 
         clear.setOnClickListener(this);
         delete.setOnClickListener(this);
@@ -93,33 +99,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //0~9
             case R.id.no0:
             {
-                if (isClickEqual) {
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
-                String str0 = result.getText().toString();
-                str0 = str0 + "0";
-                result.setText(str0);
+                String str = result.getText().toString();
+                str = str + "0";
+                result.setText(str);
                 break;
             }
             case R.id.no1:
             {
-                if (isClickEqual) {
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
-                String str1 = result.getText().toString();
-                str1 = str1 + "1";
-                result.setText(str1);
-                Toast.makeText(this,result.getText().toString(),Toast.LENGTH_SHORT).show();
+                String str = result.getText().toString();
+                str = str + "1";
+                result.setText(str);
                 break;
             }
 
             case R.id.no2:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "2";
@@ -128,9 +136,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.no3:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "3";
@@ -139,9 +148,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.no4:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "4";
@@ -150,9 +160,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.no5:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "5";
@@ -161,9 +172,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.no6:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "6";
@@ -172,9 +184,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.no7:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "7";
@@ -183,9 +196,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.no8:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "8";
@@ -194,12 +208,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.no9:
             {
-                if(isClickEqual){
+                if (isClickEqual|isSign) {
                     result.setText("");
                     isClickEqual = false;
+                    isSign = false;
                 }
                 String str = result.getText().toString();
                 str = str + "9";
+                result.setText(str);
+                break;
+            }
+            case R.id.point:
+            {
+                if (isClickEqual|isSign) {
+                    result.setText("");
+                    isClickEqual = false;
+                    isSign = false;
+                }
+                String str = result.getText().toString();
+                if(isPoint){
+                    Toast.makeText(this,"已经有小数点啦~",Toast.LENGTH_SHORT).show();
+                }else{
+                    str = str + ".";
+                    isPoint = true;
+                }
                 result.setText(str);
                 break;
             }
@@ -207,6 +239,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //清除和删除按钮
             case R.id.clear:
                 result.setText("");
+                num1 = null;
+                tag = 0;
+                isClickEqual = false;
                 break;
             case R.id.delete:
                 String str = result.getText().toString();
@@ -220,10 +255,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             //+-*/
             case R.id.add:
-                {//Toast.makeText(this,result.getText().toString(),Toast.LENGTH_SHORT).show();
+                {
                     Double buffer = Double.valueOf(result.getText().toString());
                     switch (tag){
-
                         case 0:
                             num1 = buffer;
                             break;
@@ -241,96 +275,109 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                     }
                     result.setText(String.valueOf(num1));
-                    Toast.makeText(this,String.valueOf(buffer),Toast.LENGTH_SHORT).show();
                     tag = 1;
+                    isSign = true;
+                    break;
                 }
             case R.id.reduce:
             {
+                Double buffer = Double.valueOf(result.getText().toString());
                 switch (tag){
                     case 0:
-                        num1 = Double.valueOf(result.getText().toString());
+                        num1 = buffer;
                         break;
                     case 1:
-                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        num1 = num1 + buffer;
                         break;
                     case 2:
-                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        num1 = num1 - buffer;
                         break;
                     case 3:
-                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        num1 = num1 * buffer;
                         break;
                     case 4:
-                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        num1 = num1 / buffer;
                         break;
                 }
                 result.setText(String.valueOf(num1));
                 tag = 2;
+                isSign = true;
+                break;
             }
             case R.id.multiply:
             {
+                Double buffer = Double.valueOf(result.getText().toString());
                 switch (tag){
                     case 0:
-                        num1 = Double.valueOf(result.getText().toString());
+                        num1 = buffer;
                         break;
                     case 1:
-                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        num1 = num1 + buffer;
                         break;
                     case 2:
-                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        num1 = num1 - buffer;
                         break;
                     case 3:
-                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        num1 = num1 * buffer;
                         break;
                     case 4:
-                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        num1 = num1 / buffer;
                         break;
                 }
                 result.setText(String.valueOf(num1));
                 tag = 3;
+                isSign = true;
+                break;
             }
             case R.id.divide:
             {
+                Double buffer = Double.valueOf(result.getText().toString());
                 switch (tag){
                     case 0:
-                        num1 = Double.valueOf(result.getText().toString());
+                        num1 = buffer;
                         break;
                     case 1:
-                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        num1 = num1 + buffer;
                         break;
                     case 2:
-                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        num1 = num1 - buffer;
                         break;
                     case 3:
-                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        num1 = num1 * buffer;
                         break;
                     case 4:
-                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        num1 = num1 / buffer;
                         break;
                 }
                 result.setText(String.valueOf(num1));
                 tag = 4;
+                isSign = true;
+                break;
             }
 
             //=
             case R.id.equal:
+                Double buffer = Double.valueOf(result.getText().toString());
                 switch (tag){
                     case 0:
-                        num1 = Double.valueOf(result.getText().toString());
+                        num1 = buffer;
                         break;
                     case 1:
-                        num1 = num1 + Double.valueOf(result.getText().toString());
+                        num1 = num1 + buffer;
                         break;
                     case 2:
-                        num1 = num1 - Double.valueOf(result.getText().toString());
+                        num1 = num1 - buffer;
                         break;
                     case 3:
-                        num1 = num1 * Double.valueOf(result.getText().toString());
+                        num1 = num1 * buffer;
                         break;
                     case 4:
-                        num1 = num1 / Double.valueOf(result.getText().toString());
+                        num1 = num1 / buffer;
                         break;
                 }
+                result.setText(String.valueOf(num1));
                 isClickEqual = true;
+                tag = 0;
                 break;
 
         }
