@@ -1,0 +1,61 @@
+Handle的使用：
+实现的是消息异步处理，默认情况下Handler和调用它的线程是出于同一线程的
+1.创建一个Handle对象
+
+Handler handler = new Handler();
+并重写该其handleMessage(Message msg) 方法（这个方法里面是对接收到的子线程发送来的消息的处理方式）
+
+2.用Handle的post方法开始一个新线程
+
+handler.post(MyThread)
+//此处调用的不是线程的start()方法，而是直接调用线程的run方法，因此并没有开启新的线程；所以下文的//do sth实际也是在主线程进行的
+
+3.在线程的run()方法中重写需要的操作
+
+Runnable MyThread = new Runnable(){
+@OVerrider 
+public void run(){
+//do sth }}
+//do sth 中可以写：handler.postDelayed(MyTherad,3000);这样每隔3000毫秒就是调用一次本线程，从而实现线程循环
+
+主线程中Handler updateBarHandler = new Handler(){}创建一个Handler对象
+子线程中 Message msg = updateBarHandler.optainMessage();得到一个Message对象,
+updateBarHandler.sendMessage(msg)发送消息，消息会被压送到消息队列尾部，
+也可以用msg.sendToTarger()，将消息msg发送到生成该msg的Handler对象
+与此同时自动调用handlemessage()方法处理消息
+
+4.如果线程是重复的，不能自己停止，可以调用handler.removeCallbacks(MyThread);结束进程
+
+Handler类的主要作用：在新启动的线程中发送信息，在主线程中获取处理信息
+当线程myThread使用sendMessage(msg) 这消息发送出去之后会去调用handlemessage()方法，进入消息队列（先进先出），如果当前消息队列中再没有其他消息，该消息就会执行，否则继续等待；而在myThread进程中sendMessage方法之后的内容会在sendMessage方法执行完之后继续执行，不受影响
+
+由于Android 不容许子线程直接访问主线程的界面组件，所以通过子线程发送消息，回调主线程的handleMessage()方法，从而实现修改主线程内容的目的
+
+在子线程发送消息 sendMessage(msg) 的时候，handleMessage() 方法就会被自动调用，执行相应操作
+
+
+
+
+HandlerThread 让Handler在新线程中处理消息，可以循环的处理消息
+处理复杂耗时事件
+
+（looper，一个类，循环的在队列中处理消息，当队列中没有消息时会自动休眠）
+HandlerThread 内部带有Looper()
+//下面这个语句生成一个HandlerThread对象，实现了使用Looper来处理消息队列的功能，由系统提供
+HandlerThread handleThread = new HandlerThread(“handler_thread”);
+handleThread.start();//在myHandlergetLooper之前必须要调用handleThread.start(),否则looper为空
+MyHandler myHandler = new MyHandler( handlerThread.getLooper() );
+Message msg = myHandler.obtainMessage();
+msg.sendToTarget()
+}
+/**/
+
+
+class MyHandler extends Handler{
+public MyHandler(){}
+public MyHandler(Looper looper) { super(looper); }//将Handler 绑定在looper所在的线程中处理数据
+public void handlerMessager(Message msg){ //do sth }
+}
+
+这样子handler处理消息的时候是在另外一个新线程
+
