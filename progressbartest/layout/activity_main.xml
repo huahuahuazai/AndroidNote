@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progress_bar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="200"
+            android:progress="153"
+            android:secondaryProgress="186"
+            style="?android:progressBarStyleHorizontal"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:progressBarStyleSmall"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:progressBarStyleInverse"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:progressBarStyleLargeInverse"/>
+
+        <Button
+            android:id="@+id/first_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="增加第一进度"/>
+
+        <Button
+            android:id="@+id/Second_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="增加第二进度"/>
+
+        <!--seekBar可以拖动进度的进度条-->
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--
+        RatingBar类似星星的进度条
+        android:numStars="5" 星星个数
+        android:progress="5" 当前的得分
+        android:stepSize="0.5" 每次前进的步伐大小，半颗星
+        -->
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:progress="5"
+            android:stepSize="0.5"/>
+    </LinearLayout>
+
+</ScrollView>
