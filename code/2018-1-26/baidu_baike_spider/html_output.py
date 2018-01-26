@@ -13,7 +13,7 @@ class HtmlOutput(object):
             self.datas.append(new_data)
 
     def output_html(self):
-        fout = open('output.html', 'w',encoding='utf-8')
+        fout = open('output.html', 'w')
         fout.write('<html>')
         # fout.writable('<meta charset=\'utf-8\'>')
         fout.write('<body>')
