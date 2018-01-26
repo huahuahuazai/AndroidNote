@@ -2,6 +2,8 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="false">
 
+    <!-- 图标资源来自[阿里巴巴矢量图标库](http://www.iconfont.cn/) -->
+    
     <item
         android:drawable="@drawable/progress_1"
         android:duration="300" />
