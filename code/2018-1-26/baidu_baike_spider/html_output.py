@@ -1,6 +1,9 @@
 #! usr/bin/python
 # coding:utf8
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class HtmlOutput(object):
     """docstring for HtmlOutput"""
@@ -13,18 +16,19 @@ class HtmlOutput(object):
             self.datas.append(new_data)
 
     def output_html(self):
-        fout = open('output.html', 'w')
-        fout.write('<html>')
+
+        fout = open('output.json', 'w')
+        fout.write('{')
+        fout.write('"data":[')
         # fout.writable('<meta charset=\'utf-8\'>')
-        fout.write('<body>')
-        fout.write('<table>')
 
         for data in self.datas:
-            fout.write('<tr>')
-            fout.write('<td>%s</td>' % data['url'])
-            fout.write('<td>%s</td>' % data['title'])
-            fout.write('<td>%s</td>' % data['summary'])
-            fout.write('</tr>')
-        fout.write('</html>')
-        fout.write('</body>')
-        fout.write('</table>')
+            for post_info in data:
+                fout.write('{')
+                fout.write(r'"url":"%s",' % post_info['url'])
+                fout.write(r'"title":"%s",' % post_info['title'])
+                fout.write(r'"summary":"%s"' % post_info['summary'])
+                fout.write('},')
+        
+        fout.write(r'{}')    
+        fout.write(']}')

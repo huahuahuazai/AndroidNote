@@ -6,6 +6,7 @@ import urllib2
 # from urllib import request
 # from urllib.parse import quote
 
+import json
 
 class HtmlDownloader(object):
     """docstring for HtmlDownloader"""
@@ -24,5 +25,6 @@ class HtmlDownloader(object):
 
         if response.getcode() != 200:
             return None
-
+        # print(response.read())
+        
         return response.read()

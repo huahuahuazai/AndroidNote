@@ -17,37 +17,23 @@ class SpiderMain(object):
         self.output = html_output.HtmlOutput()
 
     def craw(self, root_url):
-        count = 0
+        
         self.urls.add_new_url(root_url)
+
         new_url = self.urls.get_new_url()
 
+
         html_cont = self.downloader.download(new_url)
+
+
         new_url, new_data = self.parser.parse(new_url, html_cont)
-        # self.urls.add_new_url(new_url)
+        
         self.output.collect_data(new_data)
-        # while self.urls.has_next:
-        #     try:
-        #         new_url = self.urls.get_new_url()
-        #         html_cont = self.downloader.download(new_url)
-        #         new_url, new_data = self.parser.parse(new_url, html_cont)
-        #         # self.urls.add_new_url(new_url)
-        #         self.output.collect_data(new_data)
 
-        #         count += 1
-
-        #         if count > 1000:
-        #             break
-
-        #     except Exception as e:
-        #         raise
-        #     else:
-        #         pass
-        #     finally:
-        #         pass
         self.output.output_html()
 
 print('SpiderMain start work')
-root_url = 'http://gityuan.com/'
+root_url = 'http://www.gityuan.com/'
 sp = SpiderMain()
 sp.craw(root_url)
 print('SpiderMain end work')

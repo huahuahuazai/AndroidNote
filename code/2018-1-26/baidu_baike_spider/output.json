@@ -1,0 +1,168 @@
+{"data":[{"url":"http://gityuan.com/android","title":"
+[置顶]Android系统开篇
+        ","summary":"
+            基于Android 6.0的源码，专注于分享Android系统原理、架构分析的原创文章，这是Android系列文章的开篇。
+        "},{"url":"http://gityuan.com/2017/08/12/proc_stat/","title":"
+            /proc/stat解析
+        ","summary":"
+            
+  本文解析进程节点含义
+
+
+一. 概述
+
+1.1 CPU时间
+
+
+  
+    
+      cpu指标
+      含义
+    
+  
+  
+    
+      user
+      用户态时间
+    
+    
+      nice
+      用户态时间(低优先级，nice>0)
+    
+    
+      system
+      内核态时间
+    
+    
+...
+        "},{"url":"http://gityuan.com/2017/08/06/linux_process_pid/","title":"
+            Linux进程pid分配法
+        ","summary":"
+            一. 概述
+
+Android系统创建进程，最终的实现还是调用linux fork方法，对于linux系统每个进程都有唯一的
+进程ID(值大于0)，也有pid上限，默认为32768。 pid可重复利用，当进程被杀后会回收该pid，以供后续的进程pid分配。
+
+上一篇文章Linux进程管理 详细地介绍了进程fork过程，在copy_process()过程，执行完父进行文件、内存等信息的拷贝，紧接...
+        "},{"url":"http://gityuan.com/2017/08/05/linux-process-fork/","title":"
+            Linux进程管理(二)--fork
+        ","summary":"
+            
+  基于Kernel 4.4源码
+
+
+kernel/include/linux/sched.h
+kernel/include/linux/kthread.h
+kernel/arch/arm/include/asm/thread_info.h
+
+kernel/kernel/fork.c
+kernel/kernel/exit.c
+kernel/kernel/sched/core.c
+
+
+一. ...
+        "},{"url":"http://gityuan.com/2017/07/30/linux-process/","title":"
+            Linux进程管理(一)
+        ","summary":"
+            一. 概述
+
+Linux是类Unix系统，借鉴了Unix的设计并实现相关接口，但并非Unix。Linux是由Linus Torvalds于1991年创造的开源免费系统，采用GNU GPL协议保护，下面列举Linux的一些主要特点：
+
+
+  Linux系统中万物皆为文件，这种抽象方便操作数据或设备，只需一套统一的系统接口open, read, write, close即可完成对文件的操作
+  ...
+        "},{"url":"http://gityuan.com/2017/07/11/android_debug/","title":"
+            Android调试技巧(一)
+        ","summary":"
+            
+  本文介绍一些Android常见的调试技巧
+
+
+一. 获取Trace
+
+调用栈信息(Trace)是分析异常经常使用的，这里简单划分两类情况：
+
+
+  当前线程Trace: 当前执行流所在线程的调用栈信息；
+  目标进程Trace：可获取目标进程的调用栈，用于动态调试；
+
+
+1.1 当前线程Trace
+
+1) Java层
+
+Thread.currentThread().dumpStack(...
+        "},{"url":"http://gityuan.com/2017/07/04/ams_dumpsys/","title":"
+            AMS之dumpsys篇
+        ","summary":"
+            
+  基于Android 7.0的源码分析
+
+
+一.概述
+
+前面介绍过AMS相关的一些数据结构，每个数据结构有大量的成员变量，为了查询当前手机运行时状态的
+变化值，可以通过dumpsys activity命令来完成，该方法最终是调用AMS.dump()方法。
+
+dumpsys命令用法简要介绍过dumpsys命令
+的基本用法，以及系统服务列表信息，那么本文重点介绍AMS。
+根据dumpsys ...
+        "},{"url":"http://gityuan.com/2017/06/25/ams_summary_1/","title":"
+            AMS总结(一)
+        ","summary":"
+            
+  从另一个维度，简要总结下四大组件的超时统计区间，以及Handler情况。
+
+
+一. 组件超时统计
+
+1.1 Service
+
+
+  
+    
+      序号
+      App端方法
+      生命周期
+      计时起点
+      计时终点
+    
+  
+  
+    
+      1
+      AT.handleCreateService
+      onCreate...
+        "},{"url":"http://gityuan.com/2017/06/18/SharedPreferences/","title":"
+            全面剖析SharedPreferences
+        ","summary":"
+            一. 概述
+
+SharedPreferences(简称SP)是Android中很常用的数据存储方式，SP采用key-value（键值对）形式, 主要用于轻量级的数据存储, 尤其适合保存应用的配置参数, 但不建议使用SP
+来存储大规模的数据, 可能会降低性能.
+
+SP采用xml文件格式来保存数据, 该文件所在目录位于/data/data//shared_prefs/
+
+1.1 使用示例
+
+Sh...
+        "},{"url":"http://gityuan.com/2017/06/11/activity_record/","title":"
+            四大组件之ActivityRecord
+        ","summary":"
+            一. 引言
+
+BroadcastRecord，ServiceRecord都继承于Binder对象，而ActivityRecord并没有继承于Binder。
+但ActivityRecord的成员变量appToken的数据类型为Token，Token继承于IApplicationToken.Stub。
+
+appToken：system_server进程通过调用scheduleLaunchActi...
+        "},{"url":"http://gityuan.com/2017/06/04/content_provider_record/","title":"
+            四大组件之ContentProviderRecord
+        ","summary":"
+            一. 引言
+
+作为四大组件之一的ContentProvider，相比来说是设计得稍逊色，有些地方不太合理，比如provider级联被杀，
+请求provider时占用system_server的binder线程来wait()等。
+
+即便很少自定义ContentProvider，但你也可以会需要使用到ContentProvider，比如通信录，Settings等；
+使用Provider往往跟数据...
+        "},{}]}
