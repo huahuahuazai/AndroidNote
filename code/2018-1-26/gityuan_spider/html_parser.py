@@ -75,7 +75,7 @@ class HtmlParser(object):
 			url_ = post_div_soup.a['href']
 			# post_info['url'] = post_div_soup.a['href']
 			if 'http://' not in url_:
-				url_ = 'http://gityuan.com' + url_
+				url_ = 'http:// gityuan.com' + url_
 
 			post_info['url'] = url_
 			post_info['title']=post_div_soup.find('h2').get_text()

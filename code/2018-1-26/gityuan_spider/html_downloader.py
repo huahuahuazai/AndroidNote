@@ -3,7 +3,6 @@
 
 import string
 import urllib2
-# from urllib import request
 # from urllib.parse import quote
 
 import json
@@ -28,3 +27,24 @@ class HtmlDownloader(object):
         # print(response.read())
         
         return response.read()
+
+    def download2(self, url):
+        #升级版
+
+        if url is None:
+            return None
+
+        req_header = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36'}
+
+        try:
+            request = urllib2.Request(url,None,req_header)
+
+            response = urllib2.urlopen(request,None,300)
+
+            return response.read()
+        except socket.timeout as e:
+            print(type(e))
+        
+        return None
+
+       
