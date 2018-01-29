@@ -65,3 +65,5 @@ sp.craw(gityuan_urls, file_name)
 print('SpiderMain end work')
 
 print('have fun :)')
+
+# 2018年01月30日01:49:17 拉取15页
