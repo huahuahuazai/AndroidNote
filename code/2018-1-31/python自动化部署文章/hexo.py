@@ -19,6 +19,8 @@ def new(title):
 def generate(hexo_dir):
 
 	os.chdir(hexo_dir)
+
+	os.system('hexo clean')
 	
 	os.system('hexo generate')
 

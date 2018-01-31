@@ -24,9 +24,11 @@ file_name = raw_input('file name is：')
 
 os.chdir(hexo_url)
 
-hexo.new(file_name)
+if not file_name == '':
+	
+	hexo.new(file_name)
 
-webbrowser.open('%s/%s.md' % (hexo_post_dir,file_name))
+	webbrowser.open('%s/%s.md' % (hexo_post_dir,file_name))
 
 print('are you finish your post?')
 
@@ -50,7 +52,7 @@ if 'n' == is_post:
 
 	print(r'you choose "not",goodbye')
 
-	os._exits()
+	os._exits(0)
 
 elif 'y' == is_post:
 
