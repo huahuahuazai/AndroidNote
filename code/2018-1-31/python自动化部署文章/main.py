@@ -57,7 +57,6 @@ if 'n' == is_finish:
 #改变文章中图片的链接为github链接
 
 
-
 suddir = file_tools.copy_image(image_dir,image_git_dir)
 
 image_web_url = (r'%s/%s/'%(image_url,suddir))
@@ -66,7 +65,7 @@ os.chdir(hexo_post_dir)
 
 file_tools.change_image_url(file_name,image_dir,image_web_url)
 
-os._exits(0)
+raise error
 
 
 hexo.generate(hexo_url)
@@ -87,7 +86,8 @@ elif 'y' == is_post:
 
 
 msg = (r'"update post 《%s》"' % file_name)
-	
-hexo.post(hexo_public_dir,git_dir,msg)
+
 
 hexo.backup(hexo_post_dir,git_backup_dir,file_name)
+	
+hexo.post(hexo_public_dir,git_dir,msg)
