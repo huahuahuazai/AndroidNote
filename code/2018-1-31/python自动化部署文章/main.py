@@ -7,6 +7,10 @@ import os
 
 import webbrowser
 
+import file_tools
+
+
+
 hexo_url = '/media/jixiaoyong/新加卷/Develop/hexo/blog'
 
 hexo_public_dir = '/media/jixiaoyong/新加卷/Develop/hexo/blog/public'
@@ -16,6 +20,13 @@ hexo_post_dir = '/media/jixiaoyong/新加卷/Develop/hexo/blog/source/_posts'
 git_dir = '/home/jixiaoyong/Desktop/jixiaoyong.github.io'
 
 git_backup_dir = '/home/jixiaoyong/Desktop/jixiaoyong.github.io/blog/backup/sources/_posts'
+
+image_dir = '/media/jixiaoyong/新加卷/Develop/hexo/images/'
+
+image_git_dir = '/home/jixiaoyong/Desktop/jixiaoyong.github.io/blog/images/default'
+
+image_url = 'http://jixiaoyong.github.io/blog/images/default'
+
 
 
 print('input your file name')
@@ -30,6 +41,8 @@ if not file_name == '':
 
 	webbrowser.open('%s/%s.md' % (hexo_post_dir,file_name))
 
+
+
 print('are you finish your post?')
 
 is_finish = raw_input('y/n:')
@@ -40,6 +53,20 @@ if 'n' == is_finish:
 	
 	os._exits(0)
 
+
+#改变文章中图片的链接为github链接
+
+
+
+suddir = file_tools.copy_image(image_dir,image_git_dir)
+
+image_web_url = (r'%s/%s/'%(image_url,suddir))
+
+os.chdir(hexo_post_dir)
+
+file_tools.change_image_url(file_name,image_dir,image_web_url)
+
+os._exits(0)
 
 
 hexo.generate(hexo_url)

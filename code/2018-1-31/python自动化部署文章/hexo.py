@@ -9,6 +9,7 @@ import shutil
 
 import file_tools
 
+
 def new(title):
 
 	cmd = ('hexo new %s' % title)
