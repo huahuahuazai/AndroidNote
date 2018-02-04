@@ -1,7 +1,11 @@
 package cf.android666.mykotlin
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
@@ -23,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        requestPermission()
 
         var arrayList: ArrayList<BaseFragment> = arrayListOf()
 
@@ -69,5 +74,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun toast(s: String) {
         Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show()
+    }
+
+    fun requestPermission(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET),1)
+        }
+
     }
 }
