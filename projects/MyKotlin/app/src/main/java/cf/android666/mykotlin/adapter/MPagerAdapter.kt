@@ -1,14 +1,12 @@
-package cf.android666.mykotlin
+package cf.android666.mykotlin.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.PagerAdapter
-import android.view.View
-import android.view.ViewGroup
-import java.util.ArrayList
+import cf.android666.mykotlin.fragment.BaseFragment
+import java.util.*
 
-class MPagerAdapter(arrayList: ArrayList<BaseFragment>,fm:FragmentManager) : FragmentPagerAdapter(fm) {
+class MPagerAdapter(arrayList: ArrayList<BaseFragment>, fm:FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val mArraylist = arrayList
 
