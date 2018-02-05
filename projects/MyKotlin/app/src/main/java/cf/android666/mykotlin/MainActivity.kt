@@ -1,8 +1,9 @@
 package cf.android666.mykotlin
 
 import android.Manifest
-import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -14,12 +15,12 @@ import cf.android666.mykotlin.fragment.BaseFragment
 import cf.android666.mykotlin.fragment.Fragment1
 import cf.android666.mykotlin.fragment.Fragment2
 import cf.android666.mykotlin.fragment.Fragment3
+import cf.android666.mykotlin.utils.LogTools
+import kotlinx.android.synthetic.main.activity_content.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
-
-    var mContext: Context = this
+class MainActivity : AppCompatActivity(){
 
     var bottomNavIds = arrayListOf<Int>(R.id.menu1,R.id.menu2,R.id.menu3)
 
@@ -31,7 +32,24 @@ class MainActivity : AppCompatActivity() {
 
         var arrayList: ArrayList<BaseFragment> = arrayListOf()
 
-        arrayList.add(Fragment1())
+        val fragment1 = Fragment1()
+
+        val isLand = this.resources.configuration.layoutDirection == Configuration.ORIENTATION_LANDSCAPE
+
+        fragment1.mListener = {url ->
+
+            LogTools.logd("url is $url")
+
+            if (!isLand) {
+                val intent = Intent(this, ContentActivity::class.java)
+                intent.putExtra("url", url)
+                startActivity(intent)
+            } else {
+                fragment1.web_view?.loadUrl(url)
+            }
+         }
+
+        arrayList.add(fragment1)
         arrayList.add(Fragment2())
         arrayList.add(Fragment3())
 
@@ -69,11 +87,13 @@ class MainActivity : AppCompatActivity() {
                 }
         )
 
+
+
     }
 
 
     private fun toast(s: String) {
-        Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
     fun requestPermission(){

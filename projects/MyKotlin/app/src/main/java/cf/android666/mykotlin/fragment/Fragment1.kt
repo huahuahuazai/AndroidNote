@@ -21,14 +21,13 @@ class Fragment1 : BaseFragment() {
 
     var mConfigUrl: String = "http://jixiaoyong.github.io/download/data/gityuan_blog_data/config.json"
 
-    private lateinit var mListener: onClickListener
-
-
     //获取api总的信息
     val msgWhat1 = 0
     val msgWhat2 = 1
 
     var page = 1
+
+    var mListener : ((url:String) -> Unit)? = null
 
     val mData: ArrayList<Map<String, String>> = arrayListOf()
 
@@ -75,6 +74,11 @@ class Fragment1 : BaseFragment() {
 
         recycler.adapter = RecyclerAdapter(context, R.layout.item_recycler, mData)
 
+        (recycler.adapter as RecyclerAdapter).listener = { url ->
+
+            mListener?.invoke(url)
+
+        }
         getData()
 
         return view
@@ -85,14 +89,6 @@ class Fragment1 : BaseFragment() {
 
         DownloadUtil.downloadJson(mConfigUrl, handler, msgWhat1)
 
-    }
-
-    fun setOnClickListener(x: onClickListener) {
-        mListener = x
-    }
-
-    interface onClickListener {
-        fun listener(x: Any)
     }
 
 }
