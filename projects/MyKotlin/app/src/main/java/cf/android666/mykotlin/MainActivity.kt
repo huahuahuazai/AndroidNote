@@ -16,13 +16,12 @@ import cf.android666.mykotlin.fragment.Fragment1
 import cf.android666.mykotlin.fragment.Fragment2
 import cf.android666.mykotlin.fragment.Fragment3
 import cf.android666.mykotlin.utils.LogTools
-import kotlinx.android.synthetic.main.activity_content.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
-    var bottomNavIds = arrayListOf<Int>(R.id.menu1,R.id.menu2,R.id.menu3)
+    var bottomNavIds = arrayListOf<Int>(R.id.menu1, R.id.menu2, R.id.menu3)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +35,30 @@ class MainActivity : AppCompatActivity(){
 
         val isLand = this.resources.configuration.layoutDirection == Configuration.ORIENTATION_LANDSCAPE
 
-        fragment1.mListener = {url ->
+        fragment1.mListener = { url ->
 
-            LogTools.logd("url is $url")
+            val murl = url.replace("http:// ", "http://")
+//
+//            if (!isLand) {
+            val intent = Intent(this@MainActivity, ContentActivity::class.java)
 
-            if (!isLand) {
-                val intent = Intent(this, ContentActivity::class.java)
-                intent.putExtra("url", url)
-                startActivity(intent)
-            } else {
-                fragment1.web_view?.loadUrl(url)
-            }
-         }
+            var bound = Bundle()
+
+            bound.putString("url",url)
+
+            intent.putExtras(bound)
+
+            intent.putExtra("url", murl)
+
+            LogTools.logd("url is $murl")
+
+            startActivity(intent)
+//            } else {
+////                fragment1.web_view?.loadUrl(murl)
+//            }
+
+            startActivity(Intent(this, ContentActivity::class.java))
+        }
 
         arrayList.add(fragment1)
         arrayList.add(Fragment2())
@@ -88,7 +99,6 @@ class MainActivity : AppCompatActivity(){
         )
 
 
-
     }
 
 
@@ -96,10 +106,10 @@ class MainActivity : AppCompatActivity(){
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
-    fun requestPermission(){
+    fun requestPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET),1)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET), 1)
         }
 
     }
