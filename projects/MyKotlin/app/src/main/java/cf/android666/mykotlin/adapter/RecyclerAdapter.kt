@@ -9,15 +9,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.item_recycler.view.*
 
-class RecyclerAdapter(context: Context, layoutId : Int, data : ArrayList<Map<String,String>>) : RecyclerView.Adapter<RecyclerAdapter.MViewHolder>() {
+class RecyclerAdapter(context: Context, layoutId : Int, data : ArrayList<Map<String,String>>,
+                      var listener:(url:String) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.MViewHolder>() {
 
     private val mContext: Context = context
 
     private val mLayoutId : Int = layoutId
 
     private var mData = data
-
-    var listener:((url:String) -> Unit)? = null
 
     override fun onBindViewHolder(holder: MViewHolder?, position: Int) {
 

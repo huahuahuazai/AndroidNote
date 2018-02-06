@@ -72,13 +72,8 @@ class Fragment1 : BaseFragment() {
 
         recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        recycler.adapter = RecyclerAdapter(context, R.layout.item_recycler, mData)
+        recycler.adapter = RecyclerAdapter(context, R.layout.item_recycler, mData){url ->  mListener?.invoke(url)}
 
-        (recycler.adapter as RecyclerAdapter).listener = { url ->
-
-            mListener?.invoke(url)
-
-        }
         getData()
 
         return view

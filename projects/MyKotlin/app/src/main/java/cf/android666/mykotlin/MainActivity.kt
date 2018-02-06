@@ -9,13 +9,11 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import cf.android666.mykotlin.adapter.MPagerAdapter
 import cf.android666.mykotlin.fragment.BaseFragment
 import cf.android666.mykotlin.fragment.Fragment1
 import cf.android666.mykotlin.fragment.Fragment2
 import cf.android666.mykotlin.fragment.Fragment3
-import cf.android666.mykotlin.utils.LogTools
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -42,22 +40,14 @@ class MainActivity : AppCompatActivity() {
 //            if (!isLand) {
             val intent = Intent(this@MainActivity, ContentActivity::class.java)
 
-            var bound = Bundle()
-
-            bound.putString("url",url)
-
-            intent.putExtras(bound)
-
             intent.putExtra("url", murl)
-
-            LogTools.logd("url is $murl")
 
             startActivity(intent)
 //            } else {
 ////                fragment1.web_view?.loadUrl(murl)
 //            }
 
-            startActivity(Intent(this, ContentActivity::class.java))
+//            startActivity(Intent(this, ContentActivity::class.java))
         }
 
         arrayList.add(fragment1)
@@ -99,11 +89,6 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-    }
-
-
-    private fun toast(s: String) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
     fun requestPermission() {
