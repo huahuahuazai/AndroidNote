@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cf.android666.mykotlin.R
+import cf.android666.mykotlin.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment2.view.*
 
 class Fragment2 : BaseFragment() {

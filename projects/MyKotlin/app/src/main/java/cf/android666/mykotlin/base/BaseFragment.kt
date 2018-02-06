@@ -1,4 +1,4 @@
-package cf.android666.mykotlin.fragment
+package cf.android666.mykotlin.base
 
 import android.support.v4.app.Fragment
 

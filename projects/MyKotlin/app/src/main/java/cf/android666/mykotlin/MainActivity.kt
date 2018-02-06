@@ -12,7 +12,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.widget.SimpleAdapter
 import cf.android666.mykotlin.adapter.MPagerAdapter
-import cf.android666.mykotlin.fragment.BaseFragment
+import cf.android666.mykotlin.base.BaseFragment
 import cf.android666.mykotlin.fragment.Fragment1
 import cf.android666.mykotlin.fragment.Fragment2
 import cf.android666.mykotlin.fragment.Fragment3
@@ -21,6 +21,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+// 待实现
+// 玩转AppBarLayout，更酷炫的顶部栏 - 简书  https://www.jianshu.com/p/d159f0176576
+// CoordinatorLayout的使用如此简单 - CSDN博客  http://blog.csdn.net/huachao1001/article/details/51554608
 
     var bottomNavIds = arrayListOf(R.id.menu1, R.id.menu2, R.id.menu3)
 
@@ -73,15 +77,23 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        bottom_nav.setOnNavigationItemReselectedListener(
+        bottom_nav.setOnNavigationItemSelectedListener(
                 { item ->
 
-                    var id = item.itemId
-
-                    when (id) {
-                        R.id.menu1 -> view_pager.currentItem = 0
-                        R.id.menu2 -> view_pager.currentItem = 1
-                        R.id.menu3 -> view_pager.currentItem = 2
+                    when (item.itemId) {
+                        R.id.menu1 -> {
+                            view_pager.currentItem = 0
+                            return@setOnNavigationItemSelectedListener true
+                        }
+                        R.id.menu2 -> {
+                            view_pager.currentItem = 1
+                            return@setOnNavigationItemSelectedListener true
+                        }
+                        R.id.menu3 -> {
+                            view_pager.currentItem = 2
+                            return@setOnNavigationItemSelectedListener true
+                        }
+                        else -> return@setOnNavigationItemSelectedListener false
                     }
 
                 }
@@ -92,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         initData(data)
 
         list.adapter = SimpleAdapter(this, data, R.layout.item_menu_list,
-                arrayOf("menu","icon"), intArrayOf(R.id.text,R.id.icon))
+                arrayOf("menu", "icon"), intArrayOf(R.id.text, R.id.icon))
 
         list.setOnItemClickListener { parent, view, position, id ->
 

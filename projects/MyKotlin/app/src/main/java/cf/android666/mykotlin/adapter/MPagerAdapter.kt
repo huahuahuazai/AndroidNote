@@ -3,7 +3,7 @@ package cf.android666.mykotlin.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import cf.android666.mykotlin.fragment.BaseFragment
+import cf.android666.mykotlin.base.BaseFragment
 import java.util.*
 
 class MPagerAdapter(arrayList: ArrayList<BaseFragment>, fm:FragmentManager) : FragmentPagerAdapter(fm) {

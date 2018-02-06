@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import cf.android666.mykotlin.R
 import cf.android666.mykotlin.adapter.RecyclerAdapter
+import cf.android666.mykotlin.base.BaseFragment
 import cf.android666.mykotlin.utils.DownloadUtil
 import kotlinx.android.synthetic.main.fragment1.*
 import kotlinx.android.synthetic.main.fragment1.view.*
