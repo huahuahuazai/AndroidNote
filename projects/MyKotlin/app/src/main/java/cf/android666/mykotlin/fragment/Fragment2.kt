@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import cf.android666.mykotlin.R
+import kotlinx.android.synthetic.main.fragment2.view.*
 
 class Fragment2 : BaseFragment() {
 
@@ -13,7 +14,7 @@ class Fragment2 : BaseFragment() {
 
         val view: View = inflater!!.inflate(R.layout.fragment2, container, false)
 
-
+        view.web_view.loadUrl("http://jixiaoyong.github.io/blog/")
 
         return view
 

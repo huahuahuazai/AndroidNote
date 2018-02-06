@@ -5,9 +5,10 @@
     android:background="#ddc43f9c"
     android:orientation="vertical">
 
-  <TextView
-      android:gravity="center"
-      android:text="Textview"
+
+  <WebView
+      android:id="@+id/web_view"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="match_parent"></WebView>
+
 </LinearLayout>
