@@ -6,6 +6,7 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.lang.Exception
 import java.net.URL
 import java.net.URLConnection
 import kotlin.concurrent.thread
@@ -13,16 +14,16 @@ import kotlin.concurrent.thread
 /**
  * Created by jixiaoyong on 2018/2/4.
  */
-object DownloadUtil{
+object DownloadUtil {
 
-    fun downloadJson(urlStr: String, handler: Handler,msgWhat: Int) {
+    fun downloadJson(urlStr: String, handler: Handler, msgWhat: Int) {
 
         thread {
             kotlin.run {
 
-                var url:URL = URL(urlStr)
-                var urlConn : URLConnection = url.openConnection()
-                var input :InputStream = urlConn.getInputStream()
+                var url: URL = URL(urlStr)
+                var urlConn: URLConnection = url.openConnection()
+                var input: InputStream = urlConn.getInputStream()
                 var bufferedReader: BufferedReader = BufferedReader(InputStreamReader(input))
 
                 var stringBuffer: StringBuffer = StringBuffer()
@@ -31,12 +32,22 @@ object DownloadUtil{
 
                 while (true) {
 
-                    line = bufferedReader.readLine()?:break
+                    line = bufferedReader.readLine() ?: break
                     stringBuffer.append(line)
 
                 }
 
-                var jsonObject = JSONObject(String(stringBuffer))
+                var jsonObject: JSONObject? = null
+
+                try {
+
+                    jsonObject = JSONObject(String(stringBuffer))
+
+                } catch (e: Exception) {
+
+                    e.printStackTrace()
+
+                }
 
                 var msg = Message()
 

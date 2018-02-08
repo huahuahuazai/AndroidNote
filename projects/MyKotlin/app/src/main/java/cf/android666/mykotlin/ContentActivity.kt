@@ -2,9 +2,7 @@ package cf.android666.mykotlin
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import cf.android666.mykotlin.utils.SuperUtil
 import kotlinx.android.synthetic.main.activity_content.*
 
 class ContentActivity : AppCompatActivity() {
@@ -15,14 +13,7 @@ class ContentActivity : AppCompatActivity() {
 
         var url = intent.getStringExtra("url")
 
-        web_view.webViewClient =object : WebViewClient() {
-
-            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-                return true
-            }
-        }
-
-        web_view.loadUrl(url)
+        SuperUtil.loadUrl(web_view,url)
     }
 
 }

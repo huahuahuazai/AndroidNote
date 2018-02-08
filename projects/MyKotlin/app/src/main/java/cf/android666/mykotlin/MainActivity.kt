@@ -53,8 +53,16 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        val fragment2 = Fragment2()
+
+//        fragment2.listener = {
+//            LogTools.logd("main frag2 click")
+//
+//            it.web_view.loadUrl("http://jixiaoyong.github.io/blog")
+//        }
+
         arrayList.add(fragment1)
-        arrayList.add(Fragment2())
+        arrayList.add(fragment2)
         arrayList.add(Fragment3())
 
         var fm = supportFragmentManager
@@ -113,6 +121,8 @@ class MainActivity : AppCompatActivity() {
             openUrl(data[position]["url"].toString())
 
         }
+
+
 
     }
 

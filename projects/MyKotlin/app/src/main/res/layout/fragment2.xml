@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ddc43f9c"
     android:orientation="vertical">
 
 
   <WebView
       android:id="@+id/web_view"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"></WebView>
+      android:layout_height="match_parent"
+      android:layout_marginBottom="80dp"
+      android:background="#bfbf2c">
 
-</LinearLayout>
+  </WebView>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="35dp"
+      android:orientation="horizontal"
+      android:layout_alignParentBottom="true"
+      android:background="#d9dedede"
+      android:gravity="center"
+      android:layout_marginBottom="@dimen/bottomNavHeight">
+
+    <ImageButton
+        android:id="@+id/back_ibtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/back"
+        />
+
+    <ImageButton
+        android:id="@+id/refresh_ibtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/refresh"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        />
+
+    <ImageButton
+        android:id="@+id/forward_ibtn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/more"
+        />
+
+  </LinearLayout>
+
+</RelativeLayout>

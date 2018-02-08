@@ -10,7 +10,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.item_recycler.view.*
 
 class RecyclerAdapter(context: Context, layoutId : Int, data : ArrayList<Map<String,String>>,
-                      var listener:(url:String) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.MViewHolder>() {
+                      private var listener:(url:String) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.MViewHolder>() {
 
     private val mContext: Context = context
 
