@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import cf.android666.mykotlin.R
 import cf.android666.mykotlin.base.BaseFragment
+import cf.android666.mykotlin.utils.LogTools
 import cf.android666.mykotlin.utils.SuperUtil
 import kotlinx.android.synthetic.main.fragment3.view.*
 
@@ -20,8 +21,21 @@ class Fragment3 : BaseFragment() {
 
         SuperUtil.loadUrl(view.web_view,url)
 
+        view.setting_night_model.setOnCheckedChangeListener { v, isChecked ->
+            updateTheme(isChecked)
+            LogTools.logd("button is $isChecked")
+        }
+
         return view
 
+    }
+
+    private fun updateTheme(b: Boolean) {
+        if (!b) {
+            activity.theme.applyStyle(R.style.AppTheme,true)
+        } else {
+            activity.theme.applyStyle(R.style.AppTheme_Night,true)
+        }
     }
 
 }

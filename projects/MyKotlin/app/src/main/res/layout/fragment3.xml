@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+   <ToggleButton
+       android:id="@+id/setting_night_model"
+       android:textOn="夜间模式"
+       android:textOff="正常模式"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
    <WebView
        android:id="@+id/web_view"
        android:layout_width="match_parent"

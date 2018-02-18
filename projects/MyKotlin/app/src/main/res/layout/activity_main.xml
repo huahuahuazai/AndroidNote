@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:gravity="center_horizontal"
-            android:background="@color/colorMenu"
+            android:background="?menu_background"
             android:orientation="vertical">
 
             <ImageView
@@ -53,6 +53,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?menu_background"
                 android:divider="@null">
 
             </ListView>
