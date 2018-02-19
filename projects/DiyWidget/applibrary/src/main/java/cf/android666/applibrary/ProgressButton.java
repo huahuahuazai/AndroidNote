@@ -31,6 +31,8 @@ public class ProgressButton extends android.support.v7.widget.AppCompatButton {
     private int mForwardColor;
     private int mStorkeColor;
     private float mTextSize;
+    private String progressText = "进度";
+
     public ProgressButton(Context context) {
         this(context, null, 0);
     }
@@ -56,20 +58,24 @@ public class ProgressButton extends android.support.v7.widget.AppCompatButton {
     @Override
     protected void onDraw(Canvas canvas) {
 
-//        mProgress = 0.2f;
+        int save = canvas.saveLayer(0,0,mWidth,mHeight,null,Canvas.ALL_SAVE_FLAG);
 
-        Paint backgroundPaint = new Paint();
-        backgroundPaint.setColor(mBackgroundColor);
+        Paint paint = new Paint();
+        paint.setColor(mBackgroundColor);
+
         RectF backgroundRectF = new RectF(0, 0, mWidth, mHeight);
-        canvas.drawRoundRect(backgroundRectF, mRadius, mRadius, backgroundPaint);
+        canvas.drawRoundRect(backgroundRectF, mRadius, mRadius, paint);
 
-        Paint progressPaint = new Paint();
-        progressPaint.setColor(mForwardColor);
-        progressPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        paint.setColor(mForwardColor);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         RectF progressRectF = new RectF(0, 0, mWidth * mProgress, mHeight);
-        canvas.drawRoundRect(progressRectF, mRadius, mRadius, progressPaint);
+//        canvas.drawRoundRect(progressRectF, mRadius, mRadius, paint);
+        canvas.drawRect(progressRectF,paint);
 
-        String text = "进度 " + mProgress * mMaxProgress + "%";
+        //restore to canvas
+        canvas.restoreToCount(save);
+
+        String text = progressText + (int)(mProgress * mMaxProgress) + "%";
         Paint textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
         Rect bounds = new Rect();
@@ -79,11 +85,12 @@ public class ProgressButton extends android.support.v7.widget.AppCompatButton {
         int startY = (mHeight + bounds.height()) / 2;
         canvas.drawText(text, startX, startY, textPaint);
 
-        backgroundPaint.setColor(mStorkeColor);
-        backgroundPaint.setStyle(Paint.Style.STROKE);
-        backgroundPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        backgroundPaint.setStrokeWidth(3);
-        canvas.drawRoundRect(backgroundRectF, mRadius, mRadius, backgroundPaint);
+        paint.setColor(mStorkeColor);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(3);
+        canvas.drawRoundRect(backgroundRectF, mRadius, mRadius, paint);
+
+        super.onDraw(canvas);
     }
 
     @Override
@@ -123,10 +130,16 @@ public class ProgressButton extends android.support.v7.widget.AppCompatButton {
         return mProgress;
     }
 
-    public void setProgress(float mProgress) {
+    public void setProgress(float progress) {
+        setProgress(progress,"进度");
+    }
+
+    public void setProgress(float mProgress,String str) {
         this.mProgress = mProgress;
+        progressText = str;
         invalidate();
     }
+
 
 
 }

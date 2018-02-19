@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context="cf.android666.diywidget.MainActivity">
 
     <cf.android666.applibrary.ToggleButtonPlus
@@ -13,14 +14,21 @@
         android:textOff="off"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        app:background_color="#09bb07"
-        app:forward_color="#f5f5f5"
-        app:stroke_color="#ddaaaaab"/>
+       />
 
-    <TextView
-        android:text="def"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <cf.android666.applibrary.ToggleButtonPlus
+        android:layout_marginTop="20dp"
+        android:id="@+id/toggle_button1"
+        android:textOn="on"
+        android:textOff="off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       />
 
+    <cf.android666.applibrary.ProgressButton
+        android:layout_gravity="center"
+        android:id="@+id/progress"
+        android:layout_width="134dp"
+        android:layout_height="37dp" />
 
 </LinearLayout>
