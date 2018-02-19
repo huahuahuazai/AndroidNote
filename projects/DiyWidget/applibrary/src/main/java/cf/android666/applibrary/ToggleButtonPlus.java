@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ToggleButton;
 
@@ -43,15 +42,15 @@ public class ToggleButtonPlus extends ToggleButton {
     }
 
     public ToggleButtonPlus(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr,0);
+        this(context, attrs, defStyleAttr, 0);
     }
 
     public ToggleButtonPlus(Context context, AttributeSet attrs) {
-        this(context, attrs,0,0);
+        this(context, attrs, 0, 0);
     }
 
     public ToggleButtonPlus(Context context) {
-        this(context,null,0,0);
+        this(context, null, 0, 0);
     }
 
 
@@ -72,33 +71,57 @@ public class ToggleButtonPlus extends ToggleButton {
             backgroundPaint.setColor(mForwardColor);
         }
 
-        canvas.drawRoundRect(rectF,circleR,circleR, backgroundPaint);
-        canvas.drawCircle(cx,cy,circleR,forwardPaint);
+        canvas.drawRoundRect(rectF, circleR, circleR, backgroundPaint);
+        canvas.drawCircle(cx, cy, circleR, forwardPaint);
 
         forwardPaint.setStyle(Paint.Style.STROKE);
         forwardPaint.setColor(mStrokeColor);
         forwardPaint.setStrokeWidth(3);
-        canvas.drawCircle(cx,cy,circleR,forwardPaint);
+        canvas.drawCircle(cx, cy, circleR, forwardPaint);
 
         backgroundPaint.setStyle(Paint.Style.STROKE);
         backgroundPaint.setColor(mStrokeColor);
         backgroundPaint.setStrokeWidth(3);
-        canvas.drawRoundRect(rectF,circleR,circleR, backgroundPaint);
+        canvas.drawRoundRect(rectF, circleR, circleR, backgroundPaint);
 
 
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        mHeight = getMeasuredHeight();
-        mWidth = getMeasuredWidth();
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        if (widthMode == MeasureSpec.EXACTLY) {
+            mWidth = widthSize;
+        } else {
+            mWidth = 100;
+            if (widthMode == MeasureSpec.AT_MOST) {
+                mWidth = Math.min(mWidth, widthSize);
+            }
+        }
+
+        if (heightMode == MeasureSpec.EXACTLY) {
+            mHeight = heightSize;
+        } else {
+            mHeight = 50;
+            if (heightMode == MeasureSpec.AT_MOST) {
+                mHeight = Math.min(mHeight, heightSize);
+            }
+        }
+
+        int widthSpec = MeasureSpec.makeMeasureSpec(mWidth, MeasureSpec.EXACTLY);
+        int heightSpec = MeasureSpec.makeMeasureSpec(mHeight, MeasureSpec.EXACTLY);
+        //使父布局为button分配对应大小控件
+        super.onMeasure(widthSpec, heightSpec);
+
 
         cx = mHeight / 2;
         cy = mHeight / 2;
     }
-
 
     @Override
     public void setChecked(boolean checked) {
