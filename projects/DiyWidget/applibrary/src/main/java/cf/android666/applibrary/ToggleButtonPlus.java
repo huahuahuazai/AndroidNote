@@ -1,5 +1,6 @@
 package cf.android666.applibrary;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -24,6 +25,10 @@ public class ToggleButtonPlus extends ToggleButton {
 
     private int mHeight;
     private int mWidth;
+
+    //小球圆心坐标
+    private float cx;
+    private float cy;
 
     public ToggleButtonPlus(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -53,8 +58,6 @@ public class ToggleButtonPlus extends ToggleButton {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        Log.d("TAG", "onDraw: " + isChecked);
-
         int circleR = mHeight / 2;
 
         Paint backgroundPaint = new Paint();
@@ -62,15 +65,11 @@ public class ToggleButtonPlus extends ToggleButton {
 
         Paint forwardPaint = new Paint();
         forwardPaint.setColor(mForwardColor);
-        int cy = mHeight / 2;
-        int cx = 0;
 
         if (isChecked) {
             backgroundPaint.setColor(mBackgroundColor);
-            cx = mWidth - cy;
         } else {
             backgroundPaint.setColor(mForwardColor);
-            cx = cy;
         }
 
         canvas.drawRoundRect(rectF,circleR,circleR, backgroundPaint);
@@ -96,6 +95,8 @@ public class ToggleButtonPlus extends ToggleButton {
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
 
+        cx = mHeight / 2;
+        cy = mHeight / 2;
     }
 
 
@@ -105,9 +106,28 @@ public class ToggleButtonPlus extends ToggleButton {
     }
 
     private void refresh() {
+
         isChecked = !isChecked;
 
-        invalidate();
+        ValueAnimator animator;
+
+        if (isChecked) {
+            cx = mWidth - cy;
+            animator = ValueAnimator.ofFloat(cy, cx);
+        } else {
+            cx = cy;
+            animator = ValueAnimator.ofFloat(mWidth - cy, cx);
+        }
+
+        animator.setDuration(200);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                cx = (float) animation.getAnimatedValue();
+                invalidate();
+            }
+        });
+        animator.start();
     }
 
     @Override
