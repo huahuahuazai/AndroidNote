@@ -11,8 +11,14 @@ class ContentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
 
-        var url = intent.getStringExtra("url")
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
+        var url = intent.getStringExtra("url")
         SuperUtil.loadUrl(web_view,url)
     }
 

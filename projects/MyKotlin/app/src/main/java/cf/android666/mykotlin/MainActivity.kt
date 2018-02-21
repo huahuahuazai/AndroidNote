@@ -10,13 +10,11 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.widget.SimpleAdapter
 import cf.android666.mykotlin.adapter.MPagerAdapter
 import cf.android666.mykotlin.base.BaseFragment
 import cf.android666.mykotlin.fragment.Fragment1
 import cf.android666.mykotlin.fragment.Fragment2
 import cf.android666.mykotlin.fragment.Fragment3
-import cf.android666.mykotlin.utils.LogTools
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -31,6 +29,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolbar)
+
+        toolbar.setNavigationOnClickListener {
+            drawer_layout.openDrawer(menu_layout)
+        }
+
 
         //暂时禁止横屏
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -107,44 +112,27 @@ class MainActivity : AppCompatActivity() {
                 }
         )
 
-        var data: ArrayList<HashMap<String, Any>> = arrayListOf()
+        menu_layout.setNavigationItemSelectedListener {
 
-        initData(data)
+            var url = "http://gityuan.com/"
 
-        list.adapter = SimpleAdapter(this, data, R.layout.item_menu_list,
-                arrayOf("menu", "icon"), intArrayOf(R.id.text, R.id.icon))
-
-        list.setOnItemClickListener { parent, view, position, id ->
-
-            LogTools.logd("position is $position,url is ${data[position]["url"].toString()}")
-
-            openUrl(data[position]["url"].toString())
+            when (it.itemId) {
+                R.id.about -> {openUrl(url + "about/")
+                    return@setNavigationItemSelectedListener true}
+                R.id.archive -> {openUrl(url + "archive/")
+                    return@setNavigationItemSelectedListener true}
+                R.id.friends -> {openUrl(url + "friends/")
+                    return@setNavigationItemSelectedListener true}
+                else -> {
+                    return@setNavigationItemSelectedListener false
+                }
+            }
 
         }
 
 
-
     }
 
-    private fun initData(data: ArrayList<HashMap<String, Any>>) {
-
-        var map = hashMapOf<String, Any>()
-        map["menu"] = "About" as Any
-        map["icon"] = R.drawable.about as Any
-        map["url"] = "http://gityuan.com/about/" as Any
-        data.add(map)
-        map = hashMapOf()
-        map["menu"] = "Archive" as Any
-        map["icon"] = R.drawable.archive as Any
-        map["url"] = "http://gityuan.com/archive/" as Any
-        data.add(map)
-        map = hashMapOf()
-        map["menu"] = "Friends" as Any
-        map["icon"] = R.drawable.friends as Any
-        map["url"] = "http://gityuan.com/friends/" as Any
-        data.add(map)
-
-    }
 
     fun requestPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
@@ -162,5 +150,19 @@ class MainActivity : AppCompatActivity() {
 
         startActivity(intent)
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_main, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//
+//        when (item!!.itemId) {
+//        //do sth...
+//        }
+//
+//        return true
+//    }
 }
 
