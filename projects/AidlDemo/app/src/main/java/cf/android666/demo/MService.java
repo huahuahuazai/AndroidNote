@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -36,19 +37,23 @@ public class MService extends Service implements ManagerAidl.Stub.DeathRecipient
         @Override
         public void addPeople(People people) throws RemoteException {
             mPeopleList.add(people);
+            onPeopleChange(mPeopleList);
         }
 
         @Override
         public void registerCallBack(TaskCallBack callback) throws RemoteException {
             mCallBack = callback;
-//            if (callbackList != null) {
-//                callbackList.register(callback);
-//            }
+            Log.d("TAG", "registerCallBack注册回调方法 callback == null" + callback);
+            if (callback != null) {
+                callbackList.register(callback);
+            }
         }
 
         @Override
         public void unregisterCallBack(TaskCallBack callback) throws RemoteException {
-            callbackList.unregister(callback);
+            if (callback != null) {
+                callbackList.unregister(callback);
+            }
         }
     };
 
@@ -71,5 +76,24 @@ public class MService extends Service implements ManagerAidl.Stub.DeathRecipient
     @Override
     public void binderDied() {
         callbackList.unregister(mCallBack);
+    }
+
+    private void onPeopleChange(List<People> peoples) {
+        Log.d("tag", "onBind  onPeopleChange开始在service调用" + callbackList );
+        if (callbackList == null) {
+            return;
+        }
+        int len = callbackList.beginBroadcast();
+        Log.d("tag", "onBind  onPeopleChange开始在service调用 + len" + +len);
+
+        try {
+            for (int i = 0; i < len; i++) {
+                callbackList.getBroadcastItem(i).onPeopleChange(peoples);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }finally {
+            callbackList.finishBroadcast();
+        }
     }
 }

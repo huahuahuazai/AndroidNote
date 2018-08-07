@@ -25,15 +25,17 @@ public class PeopleManager {
 
     private List<People> peopleList;
 
-    private TaskCallBack callBack = new TaskCallBack() {
+    private TaskCallBack callBack = new TaskCallBack.Stub() {
         @Override
         public void callBack(int size) throws RemoteException {
             mListener.onCallback(size);
         }
 
         @Override
-        public IBinder asBinder() {
-            return null;
+        public void onPeopleChange(List<People> peoples) throws RemoteException {
+            peopleList = peoples;
+            mListener.onPeopleListChange(peoples);
+            Log.d("TAG", "peopelList变化了");
         }
     };
 
@@ -45,7 +47,6 @@ public class PeopleManager {
             try {
                 peopleList = managerAidl.getPeopleList();
                 managerAidl.registerCallBack(callBack);
-
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -96,6 +97,8 @@ public class PeopleManager {
         void onCreate(PeopleManager peopleManager);
 
         void onCallback(int size);
+
+        void onPeopleListChange(List<People> peoples);
     }
 
 }
